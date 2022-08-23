@@ -15,4 +15,12 @@ const UserSchema = new Schema({
     },
     thoughts: [],
     friends: []
+},
+{
+    toJSON: {
+        virtuals: true
+    }
+});
+
+UserSchema.virtual('friendCount').get(function() {
 })

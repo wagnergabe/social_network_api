@@ -4,6 +4,7 @@ const userController = {
     // get all users
     getAllUsers(req, res) {
         User.find({})
+            .select('-__v')
         .then(dbUserData => res.json(dbUserData))
         .catch(err => {
             console.log(err);
@@ -14,7 +15,7 @@ const userController = {
     //Get User by Id
 
     //Create New User
-    CreateNewUser({ body }, res) {
+    createNewUser({ body }, res) {
         User.create(body)
         .then(dbUserData => res.json(dbUserData))
         .catch(err => res.json(err));

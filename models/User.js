@@ -11,7 +11,7 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+        // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
         //code source: https://stackoverflow.com/questions/18022365/mongoose-validate-email-syntax
     },
     thoughts: [{
@@ -25,14 +25,16 @@ const UserSchema = new Schema({
 },
 {
     toJSON: {
-        virtuals: true
-    }
+        virtuals: true,
+        getters: true
+    },
+    id: false
 });
 
 UserSchema.virtual('friendCount').get(function() {
     return this.friends.length
 })
 
-const User = model ('User', UserSchema);
+const User = model('User', UserSchema);
 
 module.exports = User;

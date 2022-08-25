@@ -4,7 +4,12 @@ const userController = {
     // get all users
     getAllUsers(req, res) {
         User.find({})
-            .select('-__v')
+            .populate({
+                path: 'thoughts',
+                select: '-__v'
+            })
+                .select('-__v')
+                .sort({_id: -1})
         .then(dbUserData => res.json(dbUserData))
         .catch(err => {
             console.log(err);
@@ -13,6 +18,25 @@ const userController = {
     },
 
     //Get User by Id
+    getUserById({ params }, res) {
+        User.findOne({ _id: params.id })
+          .populate({
+            path: 'comments',
+            select: '-__v'
+          })
+          .select('-__v')
+          .then(dbPizzaData => {
+            if (!dbPizzaData) {
+              res.status(404).json({ message: 'No pizza found with this id!' });
+              return;
+            }
+            res.json(dbPizzaData);
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(400).json(err);
+          });
+      },
 
     //Create New User
     createNewUser({ body }, res) {

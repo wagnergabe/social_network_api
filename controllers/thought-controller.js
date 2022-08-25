@@ -5,6 +5,7 @@ const thoughtController = {
 
     getAllThoughts(req, res) {
         Thought.find({})
+            .select('-__v')
         .then(dbThoughtData => res.json(dbThoughtData))
         .catch(err => {
             console.log(err);
@@ -20,7 +21,7 @@ const thoughtController = {
         Thought.create(body)
             .then((dbThoughtData) => {    
                 return User.findOneAndUpdate(
-                    { _id: body.userId },
+                    {_id: params.userId },
                     { $push: { thoughts: dbThoughtData._id } },
                     { new: true }   
                 );
@@ -30,7 +31,6 @@ const thoughtController = {
                     res.status(404).json({ message: 'No user found with this id' });
                     return;
                 }
-                console.log(dbUserData)
                 res.json(dbUserData);
             })
             .catch(err => res.json(err));

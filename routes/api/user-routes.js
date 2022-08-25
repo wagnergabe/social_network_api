@@ -14,4 +14,11 @@ router
     .get(getAllUsers)
     .post(createNewUser);
 
+//Api for single id
+router
+    .route('/id')
+    .get(getUserById)
+    .put(updateUser)
+    .delete(deleteUser)
+
 module.exports = router;

@@ -14,10 +14,12 @@ router
     .route('/')
     .get(getAllThoughts)
     .post(createThought)
+    
 
 router
     .route('/:id')
     .get(getSingleThought)
     .put(updateThought)
+    .delete(deleteThought)
 
 module.exports = router;

@@ -37,6 +37,19 @@ const thoughtController = {
           .catch(err => res.status(400).json(err));
       },
 
+      //Delete Thought by ID
+      deleteThought({ params }, res) {
+        Thought.findOneAndDelete({ _id: params.id }, { new: true })
+          .then(dbThoughtData => {
+            if (!dbThoughtData) {
+              res.status(404).json({ message: 'No Thought found with this id!' });
+              return;
+            }
+            res.json(dbThoughtData);
+          })
+          .catch(err => res.status(400).json(err));
+      },
+
 
     //Create new thought (needs to be attached to user)
     createThought({ body }, res) {

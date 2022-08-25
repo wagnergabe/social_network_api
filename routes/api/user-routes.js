@@ -15,9 +15,9 @@ router
     .post(createNewUser);
 
 //Api for single id
-// router
-//     .route('/:id')
-//     .get(getUserById)
+router
+    .route('/:id')
+    .get(getUserById)
 //     .put(updateUser)
 //     .delete(deleteUser);
 

@@ -70,7 +70,25 @@ const thoughtController = {
                 res.json(dbUserData);
             })
             .catch(err => res.json(err));
-    },
+},
+
+//---Reactions---//
+
+addReaction({ params, body }, res) {
+    Thought.findOneAndUpdate(
+      { _id: params.thoughtId },
+      { $push: { reaction: body } },
+      { new: true, runValidators: true }
+    )
+      .then(dbThoughtData => {
+        if (!dbThoughtData) {
+          res.status(404).json({ message: 'No thought found with this id!' });
+          return;
+        }
+        res.json(dbThoughtData);
+      })
+      .catch(err => res.json(err));
+  },
 }
 
 module.exports = thoughtController;

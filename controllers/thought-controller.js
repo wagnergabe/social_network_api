@@ -24,6 +24,19 @@ const thoughtController = {
         })
     },
 
+    //update thought by ID
+    updateThought({ params, body}, res) {
+        Thought.findOneAndUpdate({ _id: params.id }, body, { new: true })
+          .then(dbThoughtData => {
+            if (!dbThoughtData) {
+              res.status(404).json({ message: 'No thought found with this id!' });
+              return;
+            }
+            res.json(dbThoughtData);
+          })
+          .catch(err => res.status(400).json(err));
+      },
+
 
     //Create new thought (needs to be attached to user)
     createThought({ body }, res) {

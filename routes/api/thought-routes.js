@@ -18,5 +18,6 @@ router
 router
     .route('/:id')
     .get(getSingleThought)
+    .put(updateThought)
 
 module.exports = router;

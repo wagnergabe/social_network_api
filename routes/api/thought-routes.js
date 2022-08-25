@@ -15,5 +15,8 @@ router
     .get(getAllThoughts)
     .post(createThought)
 
+router
+    .route('/:id')
+    .get(getSingleThought)
 
 module.exports = router;

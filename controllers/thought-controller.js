@@ -14,6 +14,16 @@ const thoughtController = {
     },
 
     //get thought by ID
+    getSingleThought({ params}, res) {
+        Thought.findOne({ _id: params.id })
+            .select('-__v')
+        .then(dbThoughtData => res.json(dbThoughtData))
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(400)
+        })
+    },
+
 
     //Create new thought (needs to be attached to user)
     createThought({ body }, res) {

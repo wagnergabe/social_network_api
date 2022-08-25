@@ -15,6 +15,9 @@ const {
 router
     .route('/')
     .get(getAllThoughts)
+
+router
+    .route('/:userId')
     .post(createThought)
     
 //localhost:3001/api/thoughts/id

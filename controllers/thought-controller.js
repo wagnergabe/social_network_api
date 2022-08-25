@@ -89,6 +89,18 @@ addReaction({ params, body }, res) {
       })
       .catch(err => res.json(err));
   },
-}
+
+  //delete a reaction
+
+  deleteReaction({ params }, res) {
+    Thought.findOneAndUpdate(
+    { _id: params.thoughtId },
+    { $pull: { reaction: { reactionId: params.reactionId }}},
+    { new: true }
+  )
+    .then(dbThoughtData => res.json(dbThoughtData))
+    .catch(err => res.json(err));
+},
+};
 
 module.exports = thoughtController;
